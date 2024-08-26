@@ -1,0 +1,27 @@
+{
+  "name": "test-exceljs",
+  "version": "1.0.0",
+  "description": "Testing excelJS library",
+  "main": "index.js",
+  "scripts": {
+    "dev:http2": "nodemon --exec ts-node -- --files ./src/http2-server/server.ts",
+    "dev:parser": "nodemon --exec ts-node -- --files ./src/excel-parser/parser.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@fastify/cors": "^8.1.0",
+    "@fastify/formbody": "^7.1.0",
+    "@fastify/jwt": "^6.3.2",
+    "@fastify/multipart": "^7.7.3",
+    "@fastify/static": "^6.5.0",
+    "@types/node": "^22.4.2",
+    "exceljs": "^4.4.0",
+    "fastify": "^4.5.3",
+    "fastify-plugin": "^4.2.1",
+    "nodemon": "^3.1.4",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.4"
+  }
+}
