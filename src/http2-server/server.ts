@@ -1,51 +1,16 @@
-import fastifyStatic = require("@fastify/static");
 import fastify from "fastify";
-import path = require("path");
-import { hasRole } from "./roleService";
 import { auth } from "./auth";
+import { clearCookie, download, getCookie, setCookie } from "./controller";
+import fastifyCookie from "fastify-cookie";
 
 const server = fastify();
 
-server.register(fastifyStatic, {
-  root: path.join(__dirname, "static"),
-});
-
-interface DownloadParams {
-  foldername: string;
-  filename: string;
-}
-
-async function download(request: any, reply) {
-
-  let url = request.url.replace('/public/', '')
-  console.log('request.url: ',url );
-  let urls = url.split('/')
-  
-  // urls.shift()
-  // urls.shift()
-  console.log('urls: ' , urls);
-  
-
-  hasRole(request.user, "admin");
-
-  const params = request.params as DownloadParams;
-  const filename = urls.pop();
-  console.log(filename);
-  console.log(urls);
-  
-  const filePath = path.join(__dirname, "static", ...urls);
-
-  console.log(filePath);
-  
-
-  reply.header("Content-Disposition", `inline; filename="${filename}"`);
-  reply.header("Content-Type", "image/png");
-
-  return reply.sendFile(filename, filePath);
-}
+server.register(fastifyCookie)
 
 server.get("/public/*", { preHandler: [auth] }, download);
-
+server.route({ method: "GET", url: "/set-cookie", handler: setCookie });
+server.route({ method: "GET", url: "/get-cookie", handler: getCookie });
+server.route({ method: "GET", url: "/clear-cookie", handler: clearCookie });
 
 server.listen({ port: 3000 }, (err, address) => {
   if (err) {

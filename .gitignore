@@ -1,0 +1,11 @@
+/dist
+./dist
+/node_modules
+/src/test.ts
+/static
+/tmp
+/.env
+package-lock.json
+yarn.lock
+/typings
+./typings
